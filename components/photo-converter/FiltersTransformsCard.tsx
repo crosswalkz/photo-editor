@@ -45,18 +45,6 @@ export function FiltersTransformsCard({
         <div className="text-[11px] font-semibold uppercase tracking-widest text-app-text3">
           Filters & transforms
         </div>
-        <button
-          type="button"
-          onClick={() => onReset()}
-          title="Reset filter and rotation / flip only"
-          className={`${transformBtnClass} shrink-0 border-white/[0.14] bg-app-bg3 text-app-text2 hover:text-app-text sm:w-auto`}
-        >
-          <Icon>
-            <polyline points="1 4 1 10 7 10" />
-            <path d="M3.51 15a9 9 0 1 0 .49-5.6" />
-          </Icon>
-          Filter / rotate reset
-        </button>
       </div>
       <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4">
         {FILTER_PRESETS.map((f) => {

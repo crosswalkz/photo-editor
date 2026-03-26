@@ -62,7 +62,7 @@ export function PhotoConverter() {
   const [diffSelectIndex, setDiffSelectIndex] = useState(0);
   const [toast, setToast] = useState<{
     message: string;
-    variant: "success" | "error";
+    variant: "success" | "error" | "info";
   } | null>(null);
   const [progress, setProgress] = useState(0);
   const [converting, setConverting] = useState(false);
@@ -104,13 +104,20 @@ export function PhotoConverter() {
   );
 
   const showToast = useCallback(
-    (msg: string, variant: "success" | "error" = "success") => {
+    (
+      msg: string,
+      variant: "success" | "error" | "info" = "success",
+      durationMs = 2200
+    ) => {
       if (toastTimerRef.current) clearTimeout(toastTimerRef.current);
-      setToast({
-        message: variant === "success" ? `✓ ${msg}` : `! ${msg}`,
-        variant,
-      });
-      toastTimerRef.current = setTimeout(() => setToast(null), 2200);
+      const message =
+        variant === "success"
+          ? `✓ ${msg}`
+          : variant === "error"
+            ? `! ${msg}`
+            : msg;
+      setToast({ message, variant });
+      toastTimerRef.current = setTimeout(() => setToast(null), durationMs);
     },
     []
   );
@@ -254,6 +261,17 @@ export function PhotoConverter() {
       if (previewDebounceRef.current) clearTimeout(previewDebounceRef.current);
     };
   }, [schedulePreview]);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 1023px)");
+    if (mq.matches) {
+      showToast(
+        "For the best experience, open this app on a desktop browser.",
+        "info",
+        4500
+      );
+    }
+  }, [showToast]);
 
   const handlePickFiles = () => {
     if (files.length >= MAX_UPLOAD_IMAGES) {
@@ -882,7 +900,9 @@ export function PhotoConverter() {
         className={`fixed bottom-6 left-1/2 z-[200] max-w-[calc(100vw-2rem)] -translate-x-1/2 rounded-xl border px-4 py-2.5 font-mono text-sm shadow-lg transition-all duration-300 ${
           toast?.variant === "error"
             ? "border-red-400/70 bg-red-950/55 text-red-300"
-            : "border-app-accent bg-app-bg2 text-app-accent"
+            : toast?.variant === "info"
+              ? "border-white/[0.2] bg-app-bg2 text-app-text2"
+              : "border-app-accent bg-app-bg2 text-app-accent"
         } ${
           toast
             ? "translate-y-0 opacity-100"
