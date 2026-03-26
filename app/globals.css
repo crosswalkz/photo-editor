@@ -1,0 +1,81 @@
+@import "tailwindcss";
+@import "cropperjs/dist/cropper.css";
+
+:root {
+  --app-bg: #0f0f10;
+  --app-bg2: #18181b;
+  --app-bg3: #222226;
+  --app-accent-dim: rgba(110, 231, 183, 0.12);
+  --app-accent-dim2: rgba(110, 231, 183, 0.06);
+}
+
+@theme inline {
+  --color-app-bg: #0f0f10;
+  --color-app-bg2: #18181b;
+  --color-app-bg3: #222226;
+  --color-app-text: #f4f4f5;
+  --color-app-text2: #a1a1aa;
+  --color-app-text3: #71717a;
+  --color-app-accent: #6ee7b7;
+  --color-app-accent2: #34d399;
+  --font-sans: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-dm-mono), ui-monospace, monospace;
+  --radius-app: 12px;
+  --radius-app-sm: 8px;
+  --radius-app-lg: 16px;
+}
+
+@keyframes app-pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(0.8);
+  }
+}
+
+.animate-app-pulse-dot {
+  animation: app-pulse-dot 1.8s ease-in-out infinite;
+}
+
+body {
+  background: var(--app-bg);
+  color: #f4f4f5;
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+input[type="range"].app-range {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--app-bg3);
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
+
+input[type="range"].app-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--color-app-accent);
+  cursor: pointer;
+  border: 2px solid var(--app-bg2);
+}
+
+input[type="range"].app-range::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--color-app-accent);
+  cursor: pointer;
+  border: 2px solid var(--app-bg2);
+}
